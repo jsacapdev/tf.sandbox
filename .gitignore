@@ -19,6 +19,13 @@
 # Mono auto generated files
 mono_crash.*
 
+# The .terraform directory
+.terraform/
+
+# State files and backups
+*.tfstate
+*.tfstate.*
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
