@@ -30,7 +30,7 @@ foreach ($path in $devcontainerProfilePath) {
     New-Item -Path $path -ItemType File -Force;
 
     Add-Content -Path $path `
-        -Value '/home/vscode/.local/bin/oh-my-posh init pwsh --config /home/vscode/.cache/oh-my-posh/themes/pixelrobots.omp.json | Invoke-Expression; function Get-All { Get-ChildItem -Force | Format-Table Mode, LastWriteTime, Length, Name }; Set-Alias ls Get-All;'
+        -Value '/home/vscode/.local/bin/oh-my-posh init pwsh --config /home/vscode/.cache/oh-my-posh/themes/pixelrobots.omp.json | Invoke-Expression; function Get-All { Get-ChildItem -Force | Format-Table Mode, LastWriteTime, Length, Name }; Set-Alias ls Get-All; Set-Alias -Name tf -Value terraform;'
 }
 
 pwsh;
