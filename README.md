@@ -13,4 +13,3 @@ tf apply -var-file="environments/dev.tfvars" -auto-approve
 
 tf destroy -var-file="environments/dev.tfvars" -auto-approve
 ```
-
