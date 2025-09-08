@@ -5,10 +5,15 @@ on:
     branches:
       - main
       - dev
+    paths:
+      - 'deploy/**'
+
   pull_request:
     branches:
       - main
       - dev
+    paths:
+      - 'deploy/**'      
 
 permissions:
   id-token: write
