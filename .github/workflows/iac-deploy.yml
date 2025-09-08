@@ -41,10 +41,12 @@ jobs:
       - name: "Terraform Init"
         id: init
         run: terraform init
+        working-directory: deploy/
 
       - name: "Terraform Plan"
         id: plan
         run: terraform plan -var-file="environments/dev.tfvars"
+        working-directory: deploy/
 
   terraform-apply:
     needs: terraform-plan
@@ -73,6 +75,8 @@ jobs:
 
       - name: "Terraform Init"
         run: terraform init
+        working-directory: deploy/
 
       - name: "Terraform Apply"
         run: terraform apply -auto-approve -var-file="environments/dev.tfvars"
+        working-directory: deploy/
