@@ -1,5 +1,12 @@
 # Terraform Sandbox
 
+Current Status
+
+|Workflow Name|Status|
+|-|-|
+|Deployment|[![Infrastructure as Code](https://github.com/jsacapdev/tf.sandbox/actions/workflows/iac-deploy.yml/badge.svg)](https://github.com/jsacapdev/tf.sandbox/actions/workflows/iac-deploy.yml)|
+|Dependabot|[![Dependabot Updates](https://github.com/jsacapdev/tf.sandbox/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/jsacapdev/tf.sandbox/actions/workflows/dependabot/dependabot-updates)|
+
 Useful started commands:
 
 ``` bash
