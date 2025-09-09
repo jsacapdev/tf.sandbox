@@ -2,6 +2,6 @@ version: 2
 updates:
   # Maintain updates for Terraform providers
   - package-ecosystem: "terraform"
-    directory: "/"
+    directory: "deploy"
     schedule:
       interval: "daily"
