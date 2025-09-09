@@ -1,4 +1,4 @@
-name: "Infrastructure as Code"
+name: "Deploy Core Infrastructure"
 
 on:
   workflow_dispatch:
