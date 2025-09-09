@@ -1,4 +1,4 @@
-name: "Infrastructure as Code Deployment"
+name: "Infrastructure as Code"
 
 on:
   workflow_dispatch:
@@ -50,10 +50,10 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      ARM_USE_OIDC: true
       ARM_USE_AZUREAD: true
-      TF_BACKEND_STORAGE_ACCOUNT_NAME: ${{ vars.TF_BACKEND_STORAGE_ACCOUNT_NAME }}
+      ARM_USE_OIDC: true
       TF_BACKEND_CONTAINER_NAME: ${{ vars.TF_BACKEND_CONTAINER_NAME }}
+      TF_BACKEND_STORAGE_ACCOUNT_NAME: ${{ vars.TF_BACKEND_STORAGE_ACCOUNT_NAME }}
 
     steps:
       - uses: actions/checkout@v4
@@ -77,15 +77,6 @@ jobs:
           }
           EOF
 
-      - name: Show backend.tf
-        run: cat ./backend.tf
-
-      # - name: "Set Terraform environment variables"
-      #   run: |
-      #     echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
-      #     echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
-      #     echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v3
 
@@ -96,7 +87,6 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        if: ${{ github.event.inputs.action == 'plan' }}
         run: terraform plan --var-file=./env/${{ github.event.inputs.env }}.tfvars
 
       - name: Terraform Apply
@@ -106,36 +96,3 @@ jobs:
       - name: Terraform Destroy
         if: ${{ github.event.inputs.action == 'destroy' }}
         run: terraform destroy --var-file=./env/${{ github.event.inputs.env }}.tfvars -auto-approve
-
-  # terraform-apply:
-  #   needs: terraform-plan
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-  #   environment: dev
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: "Azure Login"
-  #       uses: azure/login@v1
-  #       with:
-  #         client-id: ${{ secrets.AZURE_CLIENT_ID }}
-  #         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  #         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-
-  #     - name: "Set Terraform environment variables"
-  #       run: |
-  #         echo "ARM_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}" >> $GITHUB_ENV
-  #         echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
-  #         echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
-
-  #     - name: "Setup Terraform"
-  #       uses: hashicorp/setup-terraform@v3
-  #       with:
-  #         terraform_version: "1.5.0"
-
-  #     - name: "Terraform Init"
-  #       run: terraform init
-  #       working-directory: deploy/
-
-  #     - name: "Terraform Apply"
-  #       run: terraform apply -auto-approve -var-file="environments/dev.tfvars"
-  #       working-directory: deploy/
