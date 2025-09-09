@@ -33,6 +33,9 @@ on:
       - main
       - dev
 
+  schedule:
+    - cron: '0 19 * * *'
+
 permissions:
   id-token: write
   contents: read
