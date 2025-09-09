@@ -56,10 +56,10 @@ jobs:
               key                   = "${{ env.TF_ENV }}.api.tfstate" 
             }
           }
+          EOF
 
       - name: Show backend.tf
         run: cat ./deploy/backend.tf
-
 
       # - name: "Set Terraform environment variables"
       #   run: |
