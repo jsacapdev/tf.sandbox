@@ -2,29 +2,46 @@ name: "Infrastructure as Code Deployment"
 
 on:
   workflow_dispatch:
+    inputs:
+      env:
+        description: 'Select environment'
+        required: true
+        default: 'DEV'
+        type: choice
+        options:
+          - DEV
+          - DEV-YELLOW
+          - QA
+          - PRD
+
+      action:
+        description: 'action to perform by terraform'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
 
   push:
     branches:
       - main
       - dev
-    # paths:
-    #   - 'deploy/**'
 
   pull_request:
     branches:
       - main
       - dev
-    # paths:
-    #   - 'deploy/**'      
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  plan:
+  deploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ github.event.inputs.env }}
 
     defaults:
       run:
@@ -38,7 +55,6 @@ jobs:
       ARM_USE_AZUREAD: true
       TF_BACKEND_STORAGE_ACCOUNT_NAME: ${{ vars.TF_BACKEND_STORAGE_ACCOUNT_NAME }}
       TF_BACKEND_CONTAINER_NAME: ${{ vars.TF_BACKEND_CONTAINER_NAME }}
-      TF_ENV: dev
 
     steps:
       - uses: actions/checkout@v4
@@ -57,7 +73,7 @@ jobs:
             backend "azurerm" {  
               storage_account_name  = "${{ env.TF_BACKEND_STORAGE_ACCOUNT_NAME }}"
               container_name        = "${{ env.TF_BACKEND_CONTAINER_NAME }}"
-              key                   = "${{ env.TF_ENV }}.api.tfstate" 
+              key                   = "${{ github.event.inputs.env }}.api.tfstate" 
             }
           }
           EOF
