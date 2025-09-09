@@ -22,7 +22,7 @@ permissions:
   contents: read
 
 jobs:
-  terraform-plan:
+  plan:
     runs-on: ubuntu-latest
     environment: dev
 
@@ -66,6 +66,10 @@ jobs:
 
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: ./deploy
+        run: terraform init
 
       # - name: "Terraform Init"
       #   id: init
