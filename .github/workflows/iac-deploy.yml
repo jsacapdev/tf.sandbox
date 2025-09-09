@@ -80,6 +80,10 @@ jobs:
       - name: Terraform Validate
         run: terraform validate
 
+      - name: Terraform Plan
+        if: ${{ github.event.inputs.action == 'plan' }}
+        run: terraform plan --var-file=./env/${{ github.event.inputs.env }}.tfvars
+
       # - name: "Terraform Init"
       #   id: init
       #   run: terraform init
