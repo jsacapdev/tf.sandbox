@@ -56,7 +56,11 @@ jobs:
               key                   = "${{ env.TF_ENV }}.api.tfstate" 
             }
           }
-          EOF          
+          EOF  
+
+      - name: Show backend.tf
+        run: cat ./deploy/backend.tf
+
 
       # - name: "Set Terraform environment variables"
       #   run: |
@@ -64,12 +68,12 @@ jobs:
       #     echo "ARM_SUBSCRIPTION_ID=${{ secrets.AZURE_SUBSCRIPTION_ID }}" >> $GITHUB_ENV
       #     echo "ARM_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}" >> $GITHUB_ENV
 
-      - name: "Setup Terraform"
-        uses: hashicorp/setup-terraform@v3
+      # - name: "Setup Terraform"
+      #   uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init
-        working-directory: ./deploy
-        run: terraform init
+      # - name: Terraform Init
+      #   working-directory: ./deploy
+      #   run: terraform init
 
       # - name: "Terraform Init"
       #   id: init
