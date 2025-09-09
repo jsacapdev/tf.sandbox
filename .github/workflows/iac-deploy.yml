@@ -6,13 +6,12 @@ on:
       env:
         description: 'Select environment'
         required: true
-        default: 'DEV'
+        default: 'dev'
         type: choice
         options:
-          - DEV
-          - DEV-YELLOW
-          - QA
-          - PRD
+          - dev
+          - test
+          - prod
 
       action:
         description: 'action to perform by terraform'
