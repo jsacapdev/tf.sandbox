@@ -90,7 +90,8 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        if: ${{ github.event.inputs.action == 'plan' }}
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop == 'true' }}
+        id: plan
         run: terraform plan --var-file=./env/${{ github.event.inputs.env }}.tfvars
 
       - name: Terraform Apply
