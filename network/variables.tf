@@ -18,6 +18,21 @@ variable "apim_subnet_name" {
   type        = string
 }
 
+variable "apim_vnet_subnet_name" {
+  description = "The Subnet name for the API Management VNet integrated subnet."
+  type        = string
+}
+
+variable "apim_pe_subnet_name" {
+  description = "The Subnet name for the Private Endpoints."
+  type        = string
+}
+
+variable "apim_vm_subnet_name" {
+  description = "The Subnet name for the Private Endpoints."
+  type        = string
+}
+
 variable "apim_network_security_group" {
   description = "The Network Security Group for the API Management traffic."
   type        = string

@@ -32,3 +32,4 @@ resource "azurerm_api_management" "int_apim" {
 
   virtual_network_type = "Internal"
 }
+

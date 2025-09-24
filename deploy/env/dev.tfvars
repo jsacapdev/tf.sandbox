@@ -8,4 +8,5 @@ network_resource_group_name = "rg-api-int-westeu-dev-02"
 
 apim_virtual_network_name = "vnet-api-int-westeu-dev-02"
 apim_subnet_name = "snet-apim-api-int-westeu-dev-02"
+
 apim_sku = "Developer_1"
