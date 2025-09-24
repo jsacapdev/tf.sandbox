@@ -1,0 +1,38 @@
+<policies>
+  <inbound>
+    <base />
+    <choose>
+      <when condition="@(context.Request.MatchedParameters["id"] == "123")">
+        <return-response>
+          <set-status code="200" reason="OK" />
+          <set-body>
+{
+"id": "123",
+"name": "Mocked Item A"
+}
+          </set-body>
+        </return-response>
+      </when>
+      <otherwise>
+        <return-response>
+          <set-status code="200" reason="OK" />
+          <set-body>
+{
+"id": "456",
+"name": "Mocked Item B"
+}
+          </set-body>
+        </return-response>
+      </otherwise>
+    </choose>
+  </inbound>
+  <backend>
+    <base />
+  </backend>
+  <outbound>
+    <base />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>
