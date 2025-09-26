@@ -18,7 +18,6 @@ resource "azurerm_api_management_api_operation" "get_item" {
   method       = "GET"
   url_template = "/{id}"
 
-  # 👇 Define the path parameter explicitly
   template_parameter {
     name     = "id"
     required = true
@@ -29,6 +28,14 @@ resource "azurerm_api_management_api_operation" "get_item" {
     status_code      = 200
     description = "Successful response"
   }
+}
+
+resource "azurerm_api_management_api_policy" "configuration_item_policy" {
+  api_name            = azurerm_api_management_api.configuration_item.name
+  api_management_name = var.api_management_name
+  resource_group_name = var.apim_resource_group_name
+
+  xml_content = file("${path.module}/policies/policy_auth.xml")
 }
 
 resource "azurerm_api_management_api_operation_policy" "get_item_policy" {
